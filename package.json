@@ -1,0 +1,34 @@
+{
+  "name": "tai_system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EnesUcar1/TAI_System.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EnesUcar1/TAI_System/issues"
+  },
+  "homepage": "https://github.com/EnesUcar1/TAI_System#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.3",
+    "fs": "0.0.1-security",
+    "md5": "^2.3.0",
+    "memory-cache": "^0.2.0",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.12",
+    "path": "^0.12.7",
+    "sqlite3": "^5.0.2"
+  }
+}
