@@ -7,8 +7,10 @@ const config = require('./config.json');
 let app = express();
 
 const homeRoutes = require('./routes/homeRoutes');
+const accountRoutes = require('./routes/accountRoutes');
 const signInRoutes = require('./routes/signInRoutes');
 const signUpRoutes = require('./routes/signUpRoutes');
+
 
 
 app.engine('handlebars', express_handlebars({
@@ -25,6 +27,7 @@ app.use('/static', express.static(__dirname + '/public'));
 app.use(cookieParser());
 
 app.use('/', homeRoutes);
+app.use('/accounts', accountRoutes);
 app.use('/sign-in', signInRoutes);
 app.use('/sign-up', signUpRoutes);
 
