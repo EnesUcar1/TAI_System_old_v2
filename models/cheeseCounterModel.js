@@ -6,7 +6,7 @@ let db = new sqlite3.Database('./db/tais.db');
 
 function getCounter(userID) {
   return new Promise((resolve, reject) => {
-    db.all('Select * From CheeseCounter Where UserID =' + userID + ' And Deleted = 0', (err, row) => { return resolve(row); });
+    db.all('Select * From CheeseCounter Where UserID ="' + userID + '" And Deleted = "0"', (err, row) => { return resolve(row); });
   }).then(async (value) => { let data = await helper.setAccountsDateTime(value); return data; });
 }
 
