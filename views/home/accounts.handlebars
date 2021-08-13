@@ -3,11 +3,11 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <h6>Hesaplar Listesi</h6>
+          <h6>Hesaplar Listesi
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
-            <table class="table align-items-center mb-0">
+            <table class="table align-items-center mb-0" id="table-accounts">
               <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kullanıcı</th>
@@ -17,10 +17,10 @@
                   <th class="text-secondary opacity-7"></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="tbody-accounts">
                 {{#each accounts}}
-                  <tr>
-                    <td>
+                  <tr data-user-id-tr={{this.ID}}>
+                    <td class="account-data">
                       <div class="d-flex px-2 py-1">
                         <div>
                           <img src="https://www.nicepng.com/png/detail/144-1446162_pin-businessman-clipart-png-flat-user-icon.png" class="avatar avatar-sm me-3" alt="user1">
@@ -35,16 +35,24 @@
                       <p class="text-xs font-weight-bold mb-0">Kullanıcı</p>
                       <p class="text-xs text-secondary mb-0">Peynirci</p>
                     </td>
-                    <td class="align-middle text-center text-sm">
+                    <td class="align-middle text-center text-sm account-cheese-data">
                       <span class="badge badge-sm">{{this.Cheese}}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{this.Date}}</span>
                     </td>
                     <td class="align-middle">
-                      <a href="javascript:;" class="button-edit text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#edit-account" data-toggle="tooltip" data-original-title="Edit user" data-user-id={{this.ID}}
-                        data-user-email={{this.Email}} data-user-name={{this.Name}} data-user-cheese={{this.Cheese}}>
-                        Ayarlar
+                      <a href="javascript:;" class="button-add text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#add-account" data-toggle="tooltip" data-original-title="Add user">
+                        <i class="fas fa-plus-circle"></i>
+                      </a>
+
+                      <a href="javascript:;" style="margin-left:5%" class="button-edit text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#edit-account" data-toggle="tooltip" data-original-title="Edit user"
+                        data-user-id={{this.ID}} data-user-email={{this.Email}} data-user-name={{this.Name}} data-user-cheese={{this.Cheese}}>
+                        <i class="fas fa-edit"></i>
+                      </a>
+
+                      <a href="javascript:;" data-user-id={{this.ID}} style="margin-left:5%" class="submit-button-delete button-edit text-secondary font-weight-bold text-xs">
+                        <i class="fas fa-trash-alt"></i>
                       </a>
                     </td>
                   </tr>
@@ -53,40 +61,76 @@
             </table>
           </div>
 
-          <!-- Modal -->
-          <div class="modal fade" id="edit-account" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <!-- Modal AD -->
+          <div class="modal fade" id="add-account" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel"></h5>
+                  <h5 class="modal-title-add" id="exampleModalLabel"></h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
                   <div id="accountForm">
-                    <input type="hidden" id="userID" name="ID" />
-
                     <div class="form-group" style="width:41%; float:left">
                       <label for="userName">Kullanıcı Adı</label>
-                      <input type="text" class="form-control" id="userName" name="Name">
+                      <input type="text" class="form-control" id="userName-add" name="Name">
                     </div>
 
                     <div class="form-group" style="width:41%; float:left; margin-left:2%">
                       <label for="userEmail">Email</label>
-                      <input type="email" class="form-control" id="userEmail" name="Email">
+                      <input type="email" class="form-control" id="userEmail-add" name="Email">
                     </div>
 
                     <div class="form-group" style="width:14%; float:left; margin-left:2% ">
                       <label for="userCheese">Peynir</label>
-                      <input type="text" class="form-control" id="userCheese">
+                      <input type="text" class="form-control" min="0" max="200" id="userCheese-add">
                     </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn bg-gradient-secondary" id="modal-user-edit-close" data-bs-dismiss="modal">Kapat</button>
-                  <button type="button" class="btn submit-button-edit bg-gradient-success">Kaydet</button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" id="modal-user-add-close" data-bs-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn submit-button-add bg-gradient-success">Ekle</button>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Modal Edit -->
+          <div class="modal fade" id="edit-account" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title-edit" id="exampleModalLabel"></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div id="accountForm">
+                    <input type="hidden" id="userID-edit" name="ID" />
+
+                    <div class="form-group" style="width:41%; float:left">
+                      <label for="userName">Kullanıcı Adı</label>
+                      <input type="text" class="form-control" id="userName-edit" name="Name">
+                    </div>
+
+                    <div class="form-group" style="width:41%; float:left; margin-left:2%">
+                      <label for="userEmail">Email</label>
+                      <input type="email" class="form-control" id="userEmail-edit" name="Email">
+                    </div>
+
+                    <div class="form-group" style="width:14%; float:left; margin-left:2% ">
+                      <label for="userCheese">Peynir</label>
+                      <input type="text" class="form-control" min="0" max="200" id="userCheese-edit">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" id="modal-user-edit-close" data-bs-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn submit-button-edit bg-gradient-success">Kaydet</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -102,9 +146,8 @@
             © <script>
               document.write(new Date().getFullYear())
             </script>,
-            made with <i class="fa fa-heart"></i> by
-            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-            for a better web.
+            made with by
+            <a href="https://atelier801.com/profile?pr=Enesxfbxpro" class="font-weight-bold" target="_blank">Enesxfbxpro</a>
           </div>
         </div>
         <div class="col-lg-6">

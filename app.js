@@ -8,10 +8,9 @@ let app = express();
 
 const homeRoutes = require('./routes/homeRoutes');
 const accountRoutes = require('./routes/accountRoutes');
+const cheeseCounterRoutes = require('./routes/cheeseCounterRoutes');
 const signInRoutes = require('./routes/signInRoutes');
 const signUpRoutes = require('./routes/signUpRoutes');
-
-
 
 app.engine('handlebars', express_handlebars({
     extname: 'handlebars',
@@ -28,6 +27,7 @@ app.use(cookieParser());
 
 app.use('/', homeRoutes);
 app.use('/accounts', accountRoutes);
+app.use('/cheese-counter', cheeseCounterRoutes);
 app.use('/sign-in', signInRoutes);
 app.use('/sign-up', signUpRoutes);
 
