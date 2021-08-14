@@ -30,7 +30,7 @@ const cheeseCounter_index = async (req, res) => {
       counters[i].EstimatedCheese = (counters[i].MarketCheese + counters[i].AccountsSumCheese);
       counters[i].TargetCheesePercentage = Math.round((counters[i].TotalCheese / counters[i].TargetCheese * 100) * 100) / 100;
       counters[i].FullCheeseCount = await accountModel.getFullCheeseAccountCount(user.ID);
-      counters[i].fursCheeseRemainder = (fursCheeseSum - counters[i].TotalCheese < 0) ? ("+" + Math.abs(fursCheeseSum - counters[i].TotalCheese)) : (fursCheeseSum - counters[i].TotalCheese);
+      counters[i].fursCheeseRemainder = (fursCheeseSum - counters[i].EstimatedCheese < 0) ? ("+" + Math.abs(fursCheeseSum - counters[i].TotalCheese)) : (fursCheeseSum - counters[i].EstimatedCheese);
     }
   }
 
