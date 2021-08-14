@@ -25,7 +25,9 @@
                   <span class="mb-2 text-xs">Kürklere Kalan Peynir: <span class="text-dark ms-sm-2 font-weight-bold">{{this.fursCheeseRemainder}}</span></span>
                 </div>
                 <div class="ms-auto text-end">
-                  <a class="btn btn-link text-dark px-3 mb-0 button-edit" data-id="{{this.ID}}" data-TargetCheese="{{this.TargetCheese}}" data-SpentCheese="{{this.SpentCheese}}" data-MarketCheese="{{this.MarketCheese}}" data-StartingCheese="{{this.StartingCheese}}" data-StartingDate="{{this.StartingDate}}" data-name="{{this.Name}}" data-bs-toggle="modal" data-bs-target="#edit-counter" data-toggle="tooltip" data-original-title="Edit count" href="javascript:;"><i class="fas fa-pencil-alt tex dark me-2" aria-hidden="true"></i>Düzenle</a>
+                  <a class="btn btn-link text-dark px-3 mb-0 button-edit" data-id="{{this.ID}}" data-TargetCheese="{{this.TargetCheese}}" data-SpentCheese="{{this.SpentCheese}}" data-MarketCheese="{{this.MarketCheese}}"
+                    data-StartingCheese="{{this.StartingCheese}}" data-StartingDate="{{this.StartingDate}}" data-name="{{this.Name}}" data-bs-toggle="modal" data-bs-target="#edit-counter" data-toggle="tooltip" data-original-title="Edit count"
+                    href="javascript:;"><i class="fas fa-pencil-alt tex dark me-2" aria-hidden="true"></i>Düzenle</a>
 
                   <form style="float:left" id="counter-delete-form-{{this.ID}}" action="/cheese-counter/delete-counter" method="post">
                     <a onclick="document.getElementById('counter-delete-form-{{this.ID}}').submit();" class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Sil</a>
@@ -168,10 +170,9 @@
           <div class="copyright text-center text-sm text-muted text-lg-start">
             © <script>
               document.write(new Date().getFullYear())
-            </script>2021,
-            made with <i class="fa fa-heart" aria-hidden="true"></i> by
-            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-            for a better web.
+            </script>,
+            made with by
+            <a href="https://atelier801.com/profile?pr=Enesxfbxpro" class="font-weight-bold" target="_blank">Enesxfbxpro</a>
           </div>
         </div>
         <div class="col-lg-6">
@@ -195,13 +196,12 @@
   </footer>
 </div>
 <style>
-.list-group-item:nth-child(n+1){
-  margin-top: 20px
-}
+  .list-group-item:nth-child(n+1) {
+    margin-top: 20px
+  }
 
-.list-group-item:nth-child(1){
-  margin-top: -10px
-}
-
+  .list-group-item:nth-child(1) {
+    margin-top: -10px
+  }
 </style>
 <script src="/static/assets/js/cheese-counter.js"></script>
