@@ -2,7 +2,6 @@ const sqlite3 = require('sqlite3').verbose();
 const userModel = require('./userModel.js');
 const helper = require('../common/helper/helper.js');
 
-
 let db = new sqlite3.Database('./db/tais.db');
 
 function getAccounts(userID) {
@@ -22,10 +21,37 @@ async function getAccountSumCheese(userID) {
 
   return new Promise(async (resolve, reject) => {
     let totalCheese = 0;
+    let i = 0;
     await accounts.forEach((account) => {
       totalCheese += account.Cheese;
+      ++i;
+      if(i == accounts.length)
+        resolve(totalCheese);
     });
-    resolve(totalCheese)
+
+    if(accounts.length == 0)
+      resolve(totalCheese)
+  }).then(value => {
+    return value;
+  });
+}
+
+async function getFullCheeseAccountCount(userID) {
+  let accounts = await getAccounts(userID);
+  return new Promise(async (resolve, reject) => {
+    let totalFullCheese = 0;
+    let i = 0;
+    await accounts.forEach((account) => {
+      if (account.Cheese == 200)
+        totalFullCheese += 1;
+        i++;
+      if(i == accounts.length) {
+        resolve(totalFullCheese)
+      }
+    });
+    if(accounts.length == 0){
+      resolve(totalFullCheese)
+    }
   }).then(value => {
     return value;
   });
@@ -90,5 +116,6 @@ module.exports = {
   addAccount,
   updateAccount,
   deleteAccount,
-  getAccountSumCheese
+  getAccountSumCheese,
+  getFullCheeseAccountCount
 };

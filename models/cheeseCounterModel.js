@@ -26,7 +26,38 @@ function addCounter(counter) {
   }).then(value => { return true; });
 }
 
+function updateCounter(counter) {
+  let id = counter.ID;
+  let name = counter.Name;
+  let startingDate = counter.StartingDate;
+  let startingCheese = counter.StartingCheese;
+  let marketCheese = counter.MarketCheese;
+  let spentCheese = counter.SpentCheese;
+  let targetCheese = counter.TargetCheese;
+
+  return new Promise((resolve, reject) => {
+    db.run("Update CheeseCounter Set Name = '" + name + "' ,StartingDate = '" + startingDate + "' ,StartingCheese = '" + startingCheese + "', MarketCheese ='" + marketCheese + "', SpentCheese='" + spentCheese + "', TargetCheese='" + targetCheese + "' Where ID = '" + id + "'", (err, row) => {
+      return resolve(row);
+    });
+  }).then(value => {
+    return true;
+  });
+}
+
+function deleteCounter(counterID) {
+  let deleted = 1;
+  return new Promise((resolve, reject) => {
+    db.run("Update CheeseCounter Set Deleted = '" + deleted + "' Where ID = '" + counterID + "'", (err, row) => {
+      return resolve();
+    });
+  }).then(value => {
+    return true;
+  });
+}
+
 module.exports = {
   getCounter,
-  addCounter
+  addCounter,
+  updateCounter,
+  deleteCounter
 };

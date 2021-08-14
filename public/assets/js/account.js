@@ -110,7 +110,7 @@ $(document).on("click", ".submit-button-add", function(e) {
     else
       cheesetoggleClass = "bg-gradient-secondary"
 
-    $("#tbody-accounts").append('<tr data-user-id-tr=' + result.ID + '>' +
+    $("#tbody-accounts").prepend('<tr data-user-id-tr=' + result.ID + '>' +
       '<td class="account-data">' +
       '<div class="d-flex px-2 py-1">' +
       '<div>' +

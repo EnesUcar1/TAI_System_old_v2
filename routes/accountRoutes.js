@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true  });
 router.use(bodyParser.json());
 
-
 router.get('/', userModel.isLogin, accountController.account_index);
 router.post('/add-account', [userModel.isLogin, urlencodedParser], accountController.account_add);
 router.post('/edit-account', [userModel.isLogin, urlencodedParser], accountController.account_update);

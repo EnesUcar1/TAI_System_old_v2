@@ -3,7 +3,7 @@
     <div class="col-md-12 mt-4">
       <div class="card">
         <div class="card-header pb-0 px-3">
-          <h6 class="mb-0">Peynir Sayacı
+          <h6 class="mb-0">Favori Kürklerim ({{fursCheeseSum}} Peynir)
             <td class="align-middle">
               <a class="btn-link text-dark px-3 mb-0" href="javascript:;" data-bs-toggle="modal" data-bs-target="#add-counter" data-toggle="tooltip" data-original-title="Add count">
                 <i class="fas fa-plus-circle"></i>
@@ -11,31 +11,22 @@
           </h6>
         </div>
         <div class="card-body pt-4 p-3">
-          <ul class="list-group">
-            {{#each cheeseCounters}}
+          {{#each furs}}
+            <ul class="list-group">
               <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                 <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm">{{this.Name}} <span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2">({{this.StartingDate}})</span></span></h6>
-                  <span class="mb-2 text-xs">Kazanılan Peynir: <span class="text-dark font-weight-bold ms-sm-2">{{this.TotalCheese}}</span></span>
-                  <span class="mb-2 text-xs">Hedef Peynir Yüzdesi: <span class="text-dark font-weight-bold ms-sm-2">%{{this.TargetCheesePercentage}}</span></span>
-                  <span class="mb-2 text-xs">Yan Hesaplardaki Peynir: <span class="text-dark ms-sm-2 font-weight-bold">{{this.AccountsSumCheese}}</span></span><br>
-                  <span class="mb-2 text-xs">Günlük Ortalama Toplanan Peynir: <span class="text-dark ms-sm-2 font-weight-bold">{{this.AverageCheese}}</span></span>
-                  <span class="mb-2 text-xs">Maksimum Peynirli Hesap Sayısı: <span class="text-dark ms-sm-2 font-weight-bold">{{this.FullCheeseCount}}</span></span><br>
-                  <span class="mb-2 text-xs">Marketteki Tahmini Peynir: <span class="text-dark ms-sm-2 font-weight-bold">{{this.EstimatedCheese}}</span></span>
-                  <span class="mb-2 text-xs">Kürklere Kalan Peynir: <span class="text-dark ms-sm-2 font-weight-bold">{{this.fursCheeseRemainder}}</span></span>
+                  <h6 class="mb-3 text-sm">{{this.Name}}<span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2"></span></span></h6>
+                  <span class="mb-2 text-xs">Peynir: <span class="text-dark font-weight-bold ms-sm-2">{{this.Cheese}}</span></span>
+                  <span class="mb-2 text-xs">Öncelik: <span class="text-dark font-weight-bold ms-sm-2">{{this.Priority}}</span></span>
                 </div>
                 <div class="ms-auto text-end">
-                  <a class="btn btn-link text-dark px-3 mb-0 button-edit" data-id="{{this.ID}}" data-TargetCheese="{{this.TargetCheese}}" data-SpentCheese="{{this.SpentCheese}}" data-MarketCheese="{{this.MarketCheese}}" data-StartingCheese="{{this.StartingCheese}}" data-StartingDate="{{this.StartingDate}}" data-name="{{this.Name}}" data-bs-toggle="modal" data-bs-target="#edit-counter" data-toggle="tooltip" data-original-title="Edit count" href="javascript:;"><i class="fas fa-pencil-alt tex dark me-2" aria-hidden="true"></i>Düzenle</a>
-
-                  <form style="float:left" id="counter-delete-form-{{this.ID}}" action="/cheese-counter/delete-counter" method="post">
-                    <a onclick="document.getElementById('counter-delete-form-{{this.ID}}').submit();" class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2" aria-hidden="true"></i>Sil</a>
-                    <input type="hidden" name="ID" value={{this.ID}}>
-                  </form>
+                  <img src="{{this.Link}}">
                 </div>
               </li>
-            {{/each}}
+          {{/each}}
           </ul>
         </div>
+
       </div>
     </div>
 
@@ -43,50 +34,31 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title-add" id="exampleModalLabel">Sayaç Ekle</h5>
+            <h5 class="modal-title-add" id="exampleModalLabel">Kürk Ekle</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="/cheese-counter/add-counter" method="post">
-            <input type="hidden" name="ID" value={{this.ID}}>
+          <form action="/furs/add-fur" method="post">
             <div class="modal-body">
+              <div class="form-group" style="width:100%">
+                <label for="userName">Kürk Linki</label>
+                <input type="text" class="form-control" id="userName-add" name="Link">
+              </div>
+
               <div class="form-group" style="width:30%; float:left">
-                <label for="userName">Sayaç Adı</label>
+                <label for="userName">İsim</label>
                 <input type="text" class="form-control" id="userName-add" name="Name">
               </div>
 
               <div class="form-group" style="width:30%; margin-left:5%; float:left">
-                <label for="userName">Başlangıç Tarihi</label>
-                <input type="text" class="form-control" id="userName-add" name="StartingDate">
-              </div>
-
-              <div class="form-group" style="width:30%; margin-left:5%;float:left">
-                <label for="userName">Başlangıçdaki Peynir</label>
-                <input type="text" class="form-control" id="userName-add" name="StartingCheese">
-              </div>
-
-              <div class="form-group" style="width:30%; float:left">
-                <label for="userName">Marketteki Peynir</label>
-                <input type="text" class="form-control" id="userName-add" name="MarketCheese">
+                <label for="userName">Peynir</label>
+                <input type="text" class="form-control" id="userName-add" name="Cheese">
               </div>
 
               <div class="form-group" style="width:30%; margin-left:5%; float:left">
-                <label for="userName">Harcanan Peynir</label>
-                <input type="text" class="form-control" id="userName-add" name="SpentCheese">
-              </div>
-
-              <div class="form-group" style="width:30%; margin-left:5%; float:left">
-                <label for="userName">Peynir Hedefi</label>
-                <input type="text" class="form-control" id="userName-add" name="TargetCheese">
-              </div>
-              <br /><br /><br /><br /><br /><br /><br />
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                  Tüm kullanıcıları kullan
-                </label>
+                <label for="userName">Öncelik</label>
+                <input type="text" class="form-control" id="userName-add" name="Priority">
               </div>
 
               <div class="modal-footer">
@@ -195,13 +167,9 @@
   </footer>
 </div>
 <style>
-.list-group-item:nth-child(n+1){
-  margin-top: 20px
-}
-
-.list-group-item:nth-child(1){
-  margin-top: -10px
-}
+  .list-group-item {
+    margin-top: 10px
+  }
 
 </style>
 <script src="/static/assets/js/cheese-counter.js"></script>
