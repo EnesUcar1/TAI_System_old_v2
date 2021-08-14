@@ -9,7 +9,7 @@ const fur_index = async (req, res) => {
   let furs = await furModel.getFurs(user.ID);
   let fursCheeseSum = await furModel.getSumFurCheese(user.ID);
   fursCheeseSum = fursCheeseSum[0]['Sum(Cheese)'];
-  res.render(__dirname + '/../views/home/furs.handlebars', {fursLeftSideClass: 'active', furs: furs, fursCheeseSum: fursCheeseSum, userData: user});
+  res.render(__dirname + '/../views/home/furs.handlebars', {fursLeftSideClass: 'active', furs: furs, pageName: "Kürkler", fursCheeseSum: fursCheeseSum, userData: user});
 };
 
 const fur_addFur = async (req, res) => {

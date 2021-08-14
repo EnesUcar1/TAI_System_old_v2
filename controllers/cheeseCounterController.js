@@ -36,6 +36,7 @@ const cheeseCounter_index = async (req, res) => {
 
   res.render(__dirname + '/../views/home/cheese-counter.handlebars', {
     cheeseCounterLeftSideClass: 'active',
+    pageName: "Peynir Sayacı",
     cheeseCounters: counters.reverse(),
     userData: user
   });

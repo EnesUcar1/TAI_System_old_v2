@@ -5,7 +5,7 @@ const home_index = async (req, res) => {
   if (Array.isArray(user)) {
     user = user[0]
   }
-  res.render(__dirname + '/../views/home/home-page.handlebars', {homePageLeftSideClass: 'active', userData: user});
+  res.render(__dirname + '/../views/home/home-page.handlebars', {homePageLeftSideClass: 'active', pageName:"Ana Sayfa", userData: user});
 };
 
 module.exports = {

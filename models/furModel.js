@@ -6,7 +6,7 @@ let db = new sqlite3.Database('./db/tais.db');
 
 function getFurs(userID) {
   return new Promise((resolve, reject) => {
-    db.all('Select * From Furs Where UserID ="' + userID + '" And Deleted = "0"', (err, row) => { return resolve(row); });
+    db.all('Select * From Furs Where UserID ="' + userID + '" And Deleted = "0" Order By Priority DESC, Cheese DESC', (err, row) => { return resolve(row); });
   }).then(async (value) => { return value; });
 }
 

@@ -7,7 +7,7 @@ const account_index = async (req, res) => {
     user = user[0]
   }
   let accounts = await accountModel.getAccounts(user.ID);
-  res.render(__dirname + '/../views/home/accounts.handlebars', {accountsPageLeftSideClass: 'active', accounts: accounts.reverse(), userData: user});
+  res.render(__dirname + '/../views/home/accounts.handlebars', {accountsPageLeftSideClass: 'active', pageName: "Hesaplar", accounts: accounts.reverse(), userData: user});
 };
 
 const account_add = async (req, res) => {
