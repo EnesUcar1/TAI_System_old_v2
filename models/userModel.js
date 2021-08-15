@@ -1,6 +1,7 @@
 const cache = require('memory-cache');
 const crypto = require('crypto');
 const md5 = require('md5');
+const settingsModel = require('./settingsModel.js');
 const sqlite3 = require('sqlite3').verbose();
 
 let db = new sqlite3.Database('./db/tais.db');
@@ -32,7 +33,7 @@ async function loginUser(req, res, data) {
     });
 }
 
-function registerUser(data) {
+async function registerUser(data) {
   let created = new Date().toLocaleString();
   let name = data.Name;
   let pass = createHash(data.Password);
@@ -40,7 +41,19 @@ function registerUser(data) {
 
   return new Promise((resolve, reject) => {
     db.run("INSERT INTO Users (Created, Name, Password, Deleted) VALUES ('" + created + "', '" + name + "', '" + pass + "', '" + deleted + "');", (err, row) => { return resolve(row); });
-  }).then(value => {(value) ? true : false;  });
+  }).then(async (value) => {
+    let created = new Date().toLocaleString();
+    let deleted = 0;
+    let user = await getByName(name);
+    await new Promise((resolve, reject) => {
+      db.run("INSERT INTO Settings (Created, UserID, Deleted) VALUES ('" + created + "', '" + user[0].ID + "', '" + deleted + "');", (err, row) => {
+        return resolve();
+      });
+    }).then(async (value) => {
+      return true;
+    });
+
+    return (value) ? true : false;  });
 }
 
 function isLogin(req, res, next) {
@@ -67,6 +80,12 @@ async function getByToken(userToken) {
   }).then(value => { return value; });
 }
 
+async function getByName(name) {
+  return await new Promise((resolve, reject) => {
+    db.all('Select * From Users Where Name = "' + name + '"', (err, row) => {return resolve(row); });
+  }).then(value => { return value; });
+}
+
 function createToken() {
   return crypto.randomBytes(64).toString('hex');
 }
@@ -79,5 +98,6 @@ module.exports = {
   isLogin,
   currentUser,
   loginUser,
-  registerUser
+  registerUser,
+  getByName
 };

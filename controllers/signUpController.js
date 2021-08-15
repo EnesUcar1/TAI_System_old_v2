@@ -1,6 +1,5 @@
 const userModel = require('../models/userModel.js');
 
-
 const signUp_index = (req, res) => {
   res.render(__dirname + '/../views/home/sign-up.handlebars', {layout: false});
 };

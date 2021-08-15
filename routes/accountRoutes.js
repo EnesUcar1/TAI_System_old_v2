@@ -12,4 +12,6 @@ router.post('/add-account', [userModel.isLogin, urlencodedParser], accountContro
 router.post('/edit-account', [userModel.isLogin, urlencodedParser], accountController.account_update);
 router.post('/delete-account', [userModel.isLogin, urlencodedParser], accountController.account_delete);
 
+router.post('/edit-account-list-slice', [userModel.isLogin, urlencodedParser], accountController.account_edit_account_list_slice);
+
 module.exports = router;

@@ -9,5 +9,6 @@ router.use(bodyParser.json());
 
 router.get('/', userModel.isLogin, furController.fur_index);
 router.post('/add-fur', [userModel.isLogin, urlencodedParser], furController.fur_addFur);
+router.post('/delete-fur', [userModel.isLogin, urlencodedParser], furController.fur_deleteFur);
 
 module.exports = router;

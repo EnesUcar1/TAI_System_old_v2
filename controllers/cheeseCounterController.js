@@ -2,6 +2,7 @@ const userModel = require('../models/userModel.js');
 const accountModel = require('../models/accountModel.js');
 const furModel = require('../models/furModel.js');
 const cheeseCounterModel = require('../models/cheeseCounterModel.js');
+const settingsModel = require('../models/settingsModel.js');
 
 const cheeseCounter_index = async (req, res) => {
   let user = await userModel.currentUser(req.cookies.userToken);
@@ -34,10 +35,13 @@ const cheeseCounter_index = async (req, res) => {
     }
   }
 
+  let settings = await settingsModel.getSettings(user.ID);
+
   res.render(__dirname + '/../views/home/cheese-counter.handlebars', {
     cheeseCounterLeftSideClass: 'active',
     pageName: "Peynir Sayacı",
     cheeseCounters: counters.reverse(),
+    accountListSlice: settings[0].AccountListSlice,
     userData: user
   });
 };

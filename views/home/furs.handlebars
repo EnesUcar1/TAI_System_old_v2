@@ -3,7 +3,7 @@
     <div class="col-md-12 mt-4">
       <div class="card">
         <div class="card-header pb-0 px-3">
-          <h6 class="mb-0">Favori Kürklerim {{#if fursCheeseSum}} ({{fursCheeseSum}} Peynir){{/if}}
+          <h6 class="mb-0">Favori Kürklerim {{#if fursCheeseSum}} (<span id="totalCheese">{{fursCheeseSum}}</span> Peynir){{/if}}
             <td class="align-middle">
               <a class="btn-link text-dark px-3 mb-0" href="javascript:;" data-bs-toggle="modal" data-bs-target="#add-counter" data-toggle="tooltip" data-original-title="Add count">
                 <i class="fas fa-plus-circle"></i>
@@ -12,16 +12,17 @@
           </h6>
         </div>
         <div class="card-body pt-4 p-3">
-          <ul class="list-group">
+          <ul class="list-group" style="display: inline">
           {{#each furs}}
-              <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+              <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg fur-{{this.ID}}" style="width:30%; height: 125px;float:left;">
                 <div class="d-flex flex-column">
-                  <h6 class="mb-3 text-sm">{{this.Name}}<span class="mb-2 text-xs"><span class="text-dark font-weight-bold ms-sm-2"></span></span></h6>
+                  <h6 class="mb-3 text-sm">{{this.Name}}</h6>
                   <span class="mb-2 text-xs">Peynir: <span class="text-dark font-weight-bold ms-sm-2">{{this.Cheese}}</span></span>
                   <span class="mb-2 text-xs">Öncelik: <span class="text-dark font-weight-bold ms-sm-2">{{this.Priority}}</span></span>
                 </div>
                 <div class="ms-auto text-end">
-                  <img src="{{this.Link}}">
+                  <img style="position: absolute; right: 60px; bottom: 20px; "src="{{this.Link}}" onclick="deleteFur({{this.ID}}, {{this.Cheese}})">
+                  <img style="position: absolute; right: 10px; bottom: 20px;" src="{{this.BadgeLink}}">
                 </div>
               </li>
           {{/each}}
@@ -41,9 +42,14 @@
           </div>
           <form action="/furs/add-fur" method="post">
             <div class="modal-body">
-              <div class="form-group" style="width:100%">
+              <div class="form-group" style="width:47.5%;  float:left">
                 <label for="userName">Kürk Linki</label>
                 <input type="text" class="form-control" id="userName-add" name="Link">
+              </div>
+
+              <div class="form-group" style="width:47.5%; margin-left:5%; float:left">
+                <label for="userName">Rozet Linki</label>
+                <input type="text" class="form-control" id="userName-add" name="BadgeLink">
               </div>
 
               <div class="form-group" style="width:30%; float:left">
@@ -71,67 +77,6 @@
       </div>
     </div>
 
-
-
-    <div class="modal fade" id="edit-counter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title-edit" id="exampleModalLabel">Sayaç Düzenle</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form action="/cheese-counter/edit-counter" method="post">
-            <div class="modal-body">
-              <input type="hidden" id="counterID-edit" name="ID" />
-              <div class="form-group" style="width:30%; float:left">
-                <label for="userName">Sayaç Adı</label>
-                <input type="text" class="form-control" id="counterName-edit" name="Name">
-              </div>
-
-              <div class="form-group" style="width:30%; margin-left:5%; float:left">
-                <label for="userName">Başlangıç Tarihi</label>
-                <input type="text" class="form-control" id="counterStartingDate-edit" name="StartingDate">
-              </div>
-
-              <div class="form-group" style="width:30%; margin-left:5%;float:left">
-                <label for="userName">Başlangıçdaki Peynir</label>
-                <input type="text" class="form-control" id="counterStartingCheese-edit" name="StartingCheese">
-              </div>
-
-              <div class="form-group" style="width:30%; float:left">
-                <label for="userName">Marketteki Peynir</label>
-                <input type="text" class="form-control" id="counterMarketCheese-edit" name="MarketCheese">
-              </div>
-
-              <div class="form-group" style="width:30%; margin-left:5%; float:left">
-                <label for="userName">Harcanan Peynir</label>
-                <input type="text" class="form-control" id="counterSpentCheese-edit" name="SpentCheese">
-              </div>
-
-              <div class="form-group" style="width:30%; margin-left:5%; float:left">
-                <label for="userName">Peynir Hedefi</label>
-                <input type="text" class="form-control" id="counterTargetCheese-edit" name="TargetCheese">
-              </div>
-              <br /><br /><br /><br /><br /><br /><br />
-
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                  Tüm kullanıcıları kullan
-                </label>
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn bg-gradient-secondary" id="modal-user-edit-close" data-bs-dismiss="modal">Kapat</button>
-                <button type="submit" class="btn submit-button-edit bg-gradient-success">Kaydet</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
   <footer class="footer pt-3  ">
     <div class="container-fluid">
@@ -169,5 +114,12 @@
   .list-group-item {
     margin-top: 10px
   }
+  .list-group-item:nth-child(3n - 1) {
+    margin-left: 5%;
+  }
+  .list-group-item:nth-child(3n) {
+    margin-left: 5%;
+  }
 </style>
-<script src="/static/assets/js/cheese-counter.js"></script>
+
+<script src="/static/assets/js/fur.js"></script>

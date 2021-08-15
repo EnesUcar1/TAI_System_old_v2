@@ -10,6 +10,16 @@ function getFurs(userID) {
   }).then(async (value) => { return value; });
 }
 
+function deleteFur(furID) {
+  return new Promise((resolve, reject) => {
+    db.run("Update Furs Set Deleted = 1 Where ID = '" + furID + "'", (err, row) => {
+      return resolve(row);
+    });
+  }).then(value => {
+    return true;
+  });
+}
+
 function getSumFurCheese(userID) {
   return new Promise((resolve, reject) => {
     db.all('Select Sum(Cheese) From Furs Where UserID ="' + userID + '" And Deleted = "0"', (err, row) => { return resolve(row); });
@@ -21,17 +31,19 @@ function addFur(fur) {
   let userID = fur.UserID;
   let name = fur.Name;
   let link = fur.Link;
+  let badgeLink = fur.BadgeLink;
   let cheese = fur.Cheese;
   let priority = fur.Priority;
   let deleted = 0;
 
   return new Promise((resolve, reject) => {
-    db.run("INSERT INTO Furs (Created, UserID, Name, Link, Cheese, Priority, Deleted) VALUES ('" + created + "', '" + userID + "', '" +  name + "', '" + link + "', '" + cheese + "', '" + priority + "', '" + deleted + "');", (err, row) => { return resolve(err); });
+    db.run("INSERT INTO Furs (Created, UserID, Name, Link, BadgeLink, Cheese, Priority, Deleted) VALUES ('" + created + "', '" + userID + "', '" +  name + "', '" + link + "', '" +  badgeLink + "', '" + cheese + "', '" + priority + "', '" + deleted + "');", (err, row) => { return resolve(err); });
   }).then(value => { return true; });
 }
 
 module.exports = {
   getFurs,
   addFur,
-  getSumFurCheese
+  getSumFurCheese,
+  deleteFur
 };
