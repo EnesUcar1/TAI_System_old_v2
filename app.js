@@ -10,6 +10,7 @@ const homeRoutes = require('./routes/homeRoutes');
 const accountRoutes = require('./routes/accountRoutes');
 const cheeseCounterRoutes = require('./routes/cheeseCounterRoutes');
 const furRoutes = require('./routes/furRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 const signInRoutes = require('./routes/signInRoutes');
 const signUpRoutes = require('./routes/signUpRoutes');
 
@@ -30,6 +31,7 @@ app.use('/', homeRoutes);
 app.use('/accounts', accountRoutes);
 app.use('/cheese-counter', cheeseCounterRoutes);
 app.use('/furs', furRoutes);
+app.use('/events', eventRoutes);
 app.use('/sign-in', signInRoutes);
 app.use('/sign-up', signUpRoutes);
 
