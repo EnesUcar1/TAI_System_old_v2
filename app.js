@@ -35,5 +35,5 @@ app.use('/events', eventRoutes);
 app.use('/sign-in', signInRoutes);
 app.use('/sign-up', signUpRoutes);
 
-const port = process.env.PORT || config.app.port;
+const port = process.env.port || config.app.port;
 app.listen(port);
