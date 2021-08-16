@@ -11,12 +11,16 @@ $(document).ready(async function() {
   if(userData.Position != null)
     $('#sequence').text(userData.Position)
   else {
-    $('#sequence').text("1000000")
+    $('#sequence').text("?")
   }
-console.log(userData)
+
   $('#rounds').text(userData.stats.mouse.rounds)
   $('#cheese').text(userData.stats.mouse.cheese)
   $('#first').text(userData.stats.mouse.first)
+  $('#shaman-normal').text(userData.stats.shaman.saves_normal)
+  $('#shaman-hard').text(userData.stats.shaman.saves_hard)
+  $('#shaman-divinity').text(userData.stats.shaman.saves_divine)
+  $('#shaman-cheese').text(userData.stats.shaman.cheese)
 
 });
 
